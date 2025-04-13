@@ -1,13 +1,20 @@
 const express = require("express");
 const app = express();
-const pages = require("./routes/pages");
+const pages = require("./routes/pages"); 
+const productRoutes = require("./routes/productRoutes"); 
 
 
 app.set("view engine", "ejs");
-app.set("views", __dirname + "/views"); // Correct view path
+app.set("views", __dirname + "/views");
+
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static("public"));
-app.use("/", pages);
-app.use(express.static("public")); // Serves static files like images, CSS, etc.
+
+
+app.use("/", pages);            
+app.use("/products", productRoutes);  
 
 
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));
