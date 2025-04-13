@@ -1,0 +1,95 @@
+<%- include('partials/header') %>
+
+<section class="top-products py-8 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <h1 class="section-heading text-3xl font-semibold text-center my-8 text-gray-800">Top Products</h1>
+        
+        <!-- Product Slider Section -->
+        <div class="slider relative">
+            <!-- Previous Button -->
+            <button class="slider-btn prev-btn absolute left-0 top-1/2 transform -translate-y-1/2 bg-transparent p-2">
+                <img src="/icons/pre.svg" alt="Previous" class="w-8 h-8">
+            </button>
+            <!-- Next Button -->
+            <button class="slider-btn next-btn absolute right-0 top-1/2 transform -translate-y-1/2 bg-transparent p-2">
+                <img src="/icons/next.svg" alt="Next" class="w-8 h-8">
+            </button>
+
+            <!-- Food Slider -->
+            <div class="food-slider flex transition-transform duration-500 ease-in-out">
+                <% products.forEach(product => { %>
+                    <div class="food-card magic-shadow-sm min-w-[300px] mx-4 bg-white rounded-lg shadow-lg">
+                        <!-- Product Image -->
+                        <div class="product-image flex items-center justify-center">
+                            <img src="<%= product.image %>" alt="<%= product.name %>" class="w-full h-auto rounded-t-lg">
+                        </div>
+                        
+                        <!-- Product Information -->
+                        <hr class="my-4">
+                        <div class="product-info text-center px-4 pb-4">
+                            <h2 class="text-lg font-medium text-gray-800"><%= product.name %></h2>
+
+                            <!-- Rating -->
+                            <div class="stars flex justify-center items-center my-2">
+                                <% for (let i = 0; i < product.rating; i++) { %>
+                                    <img src="/icons/start-filled.svg" alt="Star" class="w-5 h-5">
+                                <% } %>
+                                <% for (let i = product.rating; i < 5; i++) { %>
+                                    <img src="/icons/star-grey.svg" alt="Star" class="w-5 h-5">
+                                <% } %>
+                            </div>
+
+                            <!-- Price -->
+                            <div class="price text-xl font-semibold text-green-600"><%= product.price %></div>
+
+                            <!-- Add to Cart Button -->
+                            <div class="flex justify-center mt-4">
+                                <button class="bg-yellow-500 text-white px-4 py-2 rounded-full hover:bg-yellow-600 flex items-center">
+                                    <img src="/icons/cart-2.svg" alt="Cart" class="w-5 h-5 inline mr-2">
+                                    <span>Add to cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+
+        <!-- View More Button -->
+        <div class="text-center btn-wrapper mt-6">
+            <button class="btn btn-secondary bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                View More
+            </button>
+        </div>
+    </div>
+
+    <!-- Add Product Form -->
+    <div class="mt-12 px-4">
+        <h2 class="text-xl font-semibold text-center mb-4">Add New Product</h2>
+        <form action="/product/add" method="POST" class="space-y-4 max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Product Name:</label>
+                <input type="text" id="name" name="name" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label for="image" class="block text-sm font-medium text-gray-700">Image URL:</label>
+                <input type="text" id="image" name="image" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
+                <input type="text" id="description" name="description" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label for="price" class="block text-sm font-medium text-gray-700">Price:</label>
+                <input type="number" id="price" name="price" required class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">
+                    Add Product
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<%- include('partials/footer') %>
